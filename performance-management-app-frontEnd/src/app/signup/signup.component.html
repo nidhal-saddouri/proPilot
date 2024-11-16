@@ -82,6 +82,18 @@
                   </div>
 
                   <div class="col-12">
+                    <label for="roleSelect" class="form-label">Choose Role</label>
+                    <select id="roleSelect" class="form-control" formControlName="role" required>
+                      <option value="" disabled selected>Select your role</option>
+                      <option value="manager">Manager</option>
+                      <option value="employee">Employee</option>
+                    </select>
+                    <div class="invalid-feedback">
+                      Veuillez sélectionner un rôle.
+                    </div>
+                  </div>
+
+                  <div class="col-12">
                     <div class="form-check">
                       <input  class="form-check-input" name="terms" type="checkbox" value="" id="acceptTerms" required>
                       <label class="form-check-label" for="acceptTerms">I agree and accept the <a href="#">terms and conditions</a></label>

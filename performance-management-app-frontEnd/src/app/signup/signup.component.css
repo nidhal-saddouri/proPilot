@@ -187,7 +187,7 @@
   border-radius: 5px;
   box-shadow: 0px 0 30px rgba(1, 41, 112, 0.1);
   width: 500px; /* Ajustez la largeur de la carte */
-  height: 740px;
+  height: 800px;
   max-width: 700px; /* Augmentez la largeur maximale */
   padding: 30px; /* Augmentez l'espace intérieur pour agrandir la carte */
   min-height: 400px; /* Définissez une hauteur minimale si nécessaire */

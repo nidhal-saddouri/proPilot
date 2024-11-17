@@ -1,11 +1,12 @@
-package com.example.ProPilot.repository;
+package com.propilot.performance_management_app.repository;
 
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.example.ProPilot.model.Users;
+import com.propilot.performance_management_app.model.Users;
+
 
 @Repository
 public interface UserRepository extends JpaRepository<Users, Long> {

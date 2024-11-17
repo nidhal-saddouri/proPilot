@@ -1,4 +1,4 @@
-package com.example.ProPilot.model;
+package com.propilot.performance_management_app.model;
 
 import java.time.LocalDateTime;
 

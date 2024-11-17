@@ -1,6 +1,8 @@
-package com.example.ProPilot.model;
+package com.propilot.performance_management_app.model;
 
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -22,7 +24,7 @@ public class Role {
 	    @Enumerated(EnumType.STRING)
 	    @Column(nullable = false, unique = true)
 	    private RoleName roleName;
-
+	    @JsonIgnore 
 	    @OneToMany(mappedBy = "role")  // Relation One-to-Many avec User
 	    private List<Users> users;  // Un rôle peut être attribué à plusieurs utilisateurs
 
@@ -36,7 +38,7 @@ public class Role {
 	    }
 
 	    // Setter for roleName
-	    public void setRoleName(RoleName roleName) {
+	    public void z(RoleName roleName) {
 	        this.roleName = roleName;
 	    }
 	    public Long getId() {

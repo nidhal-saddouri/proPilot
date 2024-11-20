@@ -50,7 +50,7 @@
                   <div class="col-12">
                       <label for="form2ExampleEmail" class="form-label">Email</label>
                       <div class="input-group has-validation">
-                        <span class="input-group-text" id="inputGroupPrepend"></span>
+                        <span class="input-group-text" id="inputGroupPrepend">@</span>
                         <input type="email" class="form-control" formControlName="email" id="form2ExampleEmail"
                           [class.is-invalid]="signupForm.get('email')?.invalid && signupForm.get('email')?.touched">
                         <div *ngIf="signupForm.get('email')?.invalid && signupForm.get('email')?.touched" class="invalid-feedback">
@@ -78,6 +78,18 @@
                     </div>
                     <div *ngIf="signupForm.hasError('passwordMismatch')" class="invalid-feedback">
                       Les mots de passe ne correspondent pas.
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <label for="roleSelect" class="form-label">Choose Role</label>
+                    <select id="roleSelect" class="form-control" formControlName="role"
+                      [class.is-invalid]="signupForm.get('role')?.invalid && signupForm.get('role')?.touched">
+                      <option value="" disabled selected>Select your role</option>
+                      <option value="MANAGER">MANAGER</option>
+                      <option value="EMPLOYEE">EMPLOYEE</option>
+                    </select>
+                    <div *ngIf="signupForm.get('role')?.invalid && signupForm.get('role')?.touched" class="invalid-feedback">
+                      Veuillez sélectionner un rôle.
                     </div>
                   </div>
 

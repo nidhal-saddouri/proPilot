@@ -21,7 +21,8 @@ export class SignupComponent {
       lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8), Validators.pattern(/.*[0-9].*/)]],
-      confirmPassword: ['', Validators.required]
+      confirmPassword: ['', Validators.required],
+      role: ['', Validators.required]
     }, { validator: this.passwordMatchValidator });
   }
 
@@ -51,10 +52,10 @@ export class SignupComponent {
     if (this.signupForm.valid) {
       // Activer le message d'attente
       this.isLoading = true;
-      const { firstName, lastName, email, password, confirmPassword } = this.signupForm.value;
+      const { firstName, lastName, email, password, confirmPassword, role } = this.signupForm.value;
 
       // Appeler le service d'inscription
-      this.signupService.register({ firstName, lastName, email, password, confirmPassword }).subscribe(
+      this.signupService.register({ firstName, lastName, email, password, confirmPassword,   role: { roleName: role } }).subscribe(
         response => {
           // Désactiver le message d'attente et afficher un message de succès
           this.isLoading = false;

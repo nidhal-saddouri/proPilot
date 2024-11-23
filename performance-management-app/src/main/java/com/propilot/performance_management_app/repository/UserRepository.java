@@ -1,16 +1,20 @@
 package com.propilot.performance_management_app.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import com.propilot.performance_management_app.model.Role.RoleName;
 import com.propilot.performance_management_app.model.Users;
 
 
 @Repository
 public interface UserRepository extends JpaRepository<Users, Long> {
-    boolean existsByEmail(String email);  // Vérifier si l'email existe déjà
+    boolean existsByEmail(String email);  
     Optional<Users> findByVerificationToken(String verificationToken);
-
+    List<Users> findByFirstNameContainingAndLastNameContaining(String firstName,String lastName);
+    List<Users> findByRoleRoleName(RoleName roleName);
+    List<Users> findByisApproved( boolean isApproved);
 }

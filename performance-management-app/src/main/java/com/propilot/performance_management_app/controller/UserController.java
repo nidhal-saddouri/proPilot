@@ -1,51 +1,42 @@
 package com.propilot.performance_management_app.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.propilot.performance_management_app.model.Users;
 import com.propilot.performance_management_app.service.UserService;
 
 
+
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
+	
 	@Autowired
-    private UserService userService;
-	
-	
-	  // Route pour l'inscription de l'utilisateur
-	  @PostMapping("/register")
-	    public ResponseEntity<?> signup(@RequestBody Users user) {
-	        try {
-	            Users newUser = userService.register(user);
-	            return ResponseEntity.status(HttpStatus.CREATED).body(newUser);
-	        } catch (IllegalArgumentException e) {
-	            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
-	        }
+    private UserService userservice;
+	 @GetMapping
+	    public List<Users> getUsers() {
+	        return userservice.getAllUsers();
+	        
 	    }
-
-    // Route pour vérifier l'email de l'utilisateur avec le token
-    @GetMapping("/verify")
-    public ResponseEntity<String> verifyEmail(@PathVariable String token) {
-        try {
-            // Log pour confirmer l'entrée dans la méthode
-            System.out.println("Vérification de l'email avec token: " + token);
-            userService.verifyEmail(token);
-            return new ResponseEntity<>("Email vérifié avec succès.", HttpStatus.OK);
-        } catch (IllegalArgumentException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-        } catch (Exception e) {
-            return new ResponseEntity<>("Erreur lors de la vérification de l'email.", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+	 @GetMapping("/search")
+	    public List<Users> searchUsers(@RequestParam(name = "firstname") String firstname,@RequestParam(name = "lastname") String lastname) {
+	        return userservice.searchUsersByName(firstname,lastname);
+	    }
+	   @GetMapping("/searchRole")
+	    public List<Users> searchByRole(@RequestParam("roleName") String roleName) {
+	        return userservice.findByRoleName(roleName);
+	    }
+	   @GetMapping("/searchApproved")
+	   public List<Users> searchApproved(@RequestParam(name="isapproved") boolean IsApproved){
+		   return userservice.findByIsApproved(IsApproved);
+	   }
+	 
 }

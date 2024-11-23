@@ -21,7 +21,7 @@ export interface User {
   providedIn: 'root'
 })
 export class SignupService {
-  private baseUrl = 'http://localhost:8080/api/users';
+  private baseUrl = 'http://localhost:8080/api/auth';
   constructor(private http: HttpClient,private router: Router) { }
   register(user: { firstName: string, lastName: string, email: string, password: string, confirmPassword: string, role: {  roleName: string }}): Observable<any> {
     console.log('Données envoyées au backend:', user); // Vérifiez l'objet envoyé

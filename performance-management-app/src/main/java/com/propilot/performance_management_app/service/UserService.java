@@ -98,4 +98,5 @@ public class UserService {
 	            throw new IllegalArgumentException("Token de vérification invalide ou expiré.");
 	        }
 	    }
-}
+
+		}

@@ -5,13 +5,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import { UserNotApprovedComponent } from './user-not-approved/user-not-approved.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SignupComponent,
-    AdminDashboardComponent
+    UserNotApprovedComponent,
+    UserNotApprovedComponent
   ],
   imports: [
     BrowserModule,

@@ -48,4 +48,5 @@ public class UserController {
             return new ResponseEntity<>("Erreur lors de la vérification de l'email.", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+   
 }

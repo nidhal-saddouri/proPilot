@@ -3,11 +3,11 @@ import { SignupService } from '../signup.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-admin-dashboard',
-  templateUrl: './admin-dashboard.component.html',
-  styleUrls: ['./admin-dashboard.component.css']
+  selector: 'app-user-not-approved',
+  templateUrl: './user-not-approved.component.html',
+  styleUrls: ['./user-not-approved.component.css']
 })
-export class AdminDashboardComponent {
+export class UserNotApprovedComponent {
 
   registrations: any[] = [];  // Liste des inscriptions
   isLoading = false;  // Indicateur de chargement

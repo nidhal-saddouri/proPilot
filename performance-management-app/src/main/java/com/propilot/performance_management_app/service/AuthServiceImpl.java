@@ -86,17 +86,5 @@ public class AuthServiceImpl implements AuthService{
 	            throw new RuntimeException("Impossible d'envoyer l'e-mail de confirmation.");
 	        }
 	    }
-	    @Override
-	    // Méthode de vérification de l'email avec le token
-	    public void verifyEmail(String token) {
-	        Optional<Users> userOptional = userRepository.findByVerificationToken(token);
-	        if (userOptional.isPresent()) {
-	            Users user = userOptional.get();
-	            user.setApproved(true);  // Marquer l'utilisateur comme approuvé
-	            user.setVerificationToken(null); // Supprimer le token après vérification
-	            userRepository.save(user);
-	        } else {
-	            throw new IllegalArgumentException("Token de vérification invalide ou expiré.");
-	        }
-	    }
+	 
 }

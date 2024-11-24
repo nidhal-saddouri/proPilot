@@ -33,18 +33,5 @@ public class AuthController {
 	        }
 	    }
 
-    // Route pour vérifier l'email de l'utilisateur avec le token
-    @GetMapping("/verify")
-    public ResponseEntity<String> verifyEmail(@PathVariable String token) {
-        try {
-            // Log pour confirmer l'entrée dans la méthode
-            System.out.println("Vérification de l'email avec token: " + token);
-            authService.verifyEmail(token);
-            return new ResponseEntity<>("Email vérifié avec succès.", HttpStatus.OK);
-        } catch (IllegalArgumentException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-        } catch (Exception e) {
-            return new ResponseEntity<>("Erreur lors de la vérification de l'email.", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+   
 }

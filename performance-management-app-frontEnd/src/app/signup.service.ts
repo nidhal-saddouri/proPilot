@@ -30,18 +30,7 @@ export class SignupService {
         catchError((error: any) => throwError(error))
       );
   }
-  verifyEmail(token: string): Observable<any> {
-    return this.http.get(`${this.baseUrl}/verify?token=${token}`)
-      .pipe(
-        catchError((error: any) => throwError(error)) // Handle error appropriately
-      );
-  }
-
-  // Nouvelle méthode pour récupérer les inscriptions en attente
-  getPendingRegistrations(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/pending-registrations`);
-  }
-
+  
   // Méthode pour approuver une inscription
   approveRegistration(id: number): Observable<any> {
     return this.http.put(`${this.baseUrl}/approve/${id}`, {});

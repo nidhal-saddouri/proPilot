@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { User, UsersService } from '../users.service';
-import { FilterService } from '../filter.service';
 
 @Component({
   selector: 'app-dashboardadmin',
@@ -9,9 +8,7 @@ import { FilterService } from '../filter.service';
 })
 export class DashboardadminComponent {
   users: User[]=[];
-  constructor(private userService: UsersService, private filterService :FilterService){}
+  constructor(private userService: UsersService){}
 
-  getApprovedUsers(isApproved: boolean): void {
-    this.filterService.setFilter(isApproved); // Transmet le filtre
-  }
+
 }

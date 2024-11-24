@@ -32,10 +32,28 @@ export class UsersService {
   searchUsersByName(firstname: string,lastname: string): Observable<User[]> {
     return this.http.get<User[]>(`${this.baseUrl}/search?firstname=${firstname}&lastname=${lastname}`);
  }
- searchByRole(roleName: string): Observable<any[]> {
-  return this.http.get<any[]>(`${this.baseUrl}/searchRole?roleName=${roleName}`);
+ searchNotApprovedByRole(roleName: string): Observable<any[]> {
+  return this.http.get<any[]>(`${this.baseUrl}/searchRoleNotApproved?roleName=${roleName}`);
 }
-searchByIsApproved(isapproved: boolean): Observable<any[]> {
-  return this.http.get<any[]>(`${this.baseUrl}/searchApproved?isapproved=${isapproved}`);
+
+searchApprovedByRole(roleName: string): Observable<any[]> {
+  return this.http.get<any[]>(`${this.baseUrl}/searchRoleApproved?roleName=${roleName}`);
+}
+
+getApprovedUsers(): Observable<any[]> {
+  return this.http.get<any[]>(`${this.baseUrl}/users-approved`);
+}
+getNotApprovedUsers(): Observable<any[]> {
+  return this.http.get<any[]>(`${this.baseUrl}/users-not-approved`);
+}
+searchNotApprovedUsers(firstName: string, lastName: string): Observable<any[]> {
+  return this.http.get<any[]>(
+    `${this.baseUrl}/searchNotApproved?firstName=${firstName}&lastName=${lastName}`
+  );
+}
+searchApprovedUsers(firstName: string, lastName: string): Observable<any[]> {
+  return this.http.get<any[]>(
+    `${this.baseUrl}/searchApprovedUsers?firstName=${firstName}&lastName=${lastName}`
+  );
 }
 }

@@ -15,6 +15,9 @@ public interface UserRepository extends JpaRepository<Users, Long> {
     boolean existsByEmail(String email);  
     Optional<Users> findByVerificationToken(String verificationToken);
     List<Users> findByFirstNameContainingAndLastNameContaining(String firstName,String lastName);
-    List<Users> findByRoleRoleName(RoleName roleName);
-    List<Users> findByisApproved( boolean isApproved);
+    List<Users> findByIsApprovedAndRoleRoleName(boolean isApproved, RoleName roleName);
+    List<Users> findByIsApprovedTrue();
+    List<Users> findByIsApprovedFalse();
+    List<Users> findByIsApprovedAndFirstNameContainingAndLastNameContaining( boolean isApproved, String firstName, String lastName);
+
 }

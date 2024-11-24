@@ -6,10 +6,13 @@ import com.propilot.performance_management_app.model.Users;
 
 
 public interface UserService {
-	List<Users> getAllUsers();
+	List<Users> getApprovedUsers();
 	 List<Users> searchUsersByName(String firstName,String lastName);
-	 List<Users> findByRoleName(String roleName) ;
-	 List<Users> findByIsApproved(boolean IsApproved);
+	 List<Users> getNotApprovedUsers();
+	 List<Users> findNotApprovedUsers(String firstName, String lastName);
+	 List<Users> findApprovedUsers(String firstName, String lastName) ;
+	 List<Users> findByNotApprovedandRoleName(String roleName);
+	 List<Users> findByApprovedandRoleName(String roleName);
 	 }
 
 		

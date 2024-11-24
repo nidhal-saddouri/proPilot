@@ -14,13 +14,8 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto py-0">
                 <a class="nav-item nav-link active"  class="nav-item nav-link">Home</a>
-                <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">Users</a>
-                    <div class="dropdown-menu m-0">
-                        <a  (click)="getApprovedUsers(true)" class="dropdown-item">Approved</a>
-                        <a  (click)="getApprovedUsers(false)" class="dropdown-item">Not Approved</a>
-                    </div>
-                </div>
+                <a class="nav-item nav-link active"  class="nav-item nav-link">Users</a>
+
                 <a class="nav-item nav-link active"  class="nav-item nav-link">Files</a>
                 
             </div>
@@ -161,8 +156,13 @@
                     <div class="col-12">
                       <div class="card recent-sales overflow-auto">
                         <app-users></app-users>
-                      
+                                           
                      </div>
+                     <div class="card recent-sales overflow-auto">
+                      <app-user-not-approved></app-user-not-approved> 
+                                         
+                   </div>
+                  
                     </div><!-- End Recent Sales -->
         
                     <!-- Top Selling -->

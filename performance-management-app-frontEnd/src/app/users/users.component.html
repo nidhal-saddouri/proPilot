@@ -9,18 +9,17 @@
       
       <!-- Barre de recherche + Bouton -->
       <div class="d-flex align-items-center">
-        
         <select  id="roleSelect"  class="form-control me-3"  id="roleSelect" [(ngModel)]="selectedRole" (change)="searchByRole()">
-            <option value="" disabled>Select Role</option>
-            <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
-          </select>
+          <option value="" disabled>Select Role</option>
+          <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
+        </select>
         <!-- Barre de recherche -->
         <input 
         type="text" 
-        [(ngModel)]="searchTerm" 
+        [(ngModel)]="searchQuery" 
         class="form-control me-3"  
         placeholder="Search..." 
-        (input)="onSearch()">
+        (input)="OnSearch()">
        
       </div>
     

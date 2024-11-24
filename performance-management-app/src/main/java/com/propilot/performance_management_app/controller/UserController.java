@@ -24,27 +24,44 @@ public class UserController {
 	
 	@Autowired
     private UserService userservice;
-	 @GetMapping
+	 @GetMapping("users-approved")
 	    public List<Users> getUsers() {
-	        return userservice.getAllUsers();
+	        return userservice.getApprovedUsers();
 	        
+	    }
+	 @GetMapping("/users-not-approved")
+	    public List<Users> getNotApprovedUsers() {
+	        return userservice.getNotApprovedUsers(); // Méthode pour récupérer les utilisateurs non approuvés
 	    }
 
 	 @GetMapping("/search")
 	    public List<Users> searchUsers(@RequestParam(name = "firstname") String firstname,@RequestParam(name = "lastname") String lastname) {
 	        return userservice.searchUsersByName(firstname,lastname);
 	    }
-	   @GetMapping("/searchRole")
-	    public List<Users> searchByRole(@RequestParam("roleName") String roleName) {
-	        return userservice.findByRoleName(roleName);
+	   @GetMapping("/searchRoleNotApproved")
+	    public List<Users> searchNotApprovedByRole(@RequestParam("roleName") String roleName) {
+	        return userservice.findByNotApprovedandRoleName(roleName);
 	    }
-	   @GetMapping("/searchApproved")
-	   public List<Users> searchApproved(@RequestParam(name="isapproved") boolean IsApproved){
-		   return userservice.findByIsApproved(IsApproved);
-	   }
+	   @GetMapping("/searchRoleApproved")
+	    public List<Users> searchApprovedByRole(@RequestParam("roleName") String roleName) {
+	        return userservice.findByApprovedandRoleName(roleName);
+	    }
+	  
 	 
 
-    // Route pour vérifier l'email de l'utilisateur avec le token
+	   @GetMapping("/searchNotApproved")
+	   public List<Users> searchNotApproved(
+	       @RequestParam(name="firstName", required=false, defaultValue="") String firstName,
+	       @RequestParam(name="lastName", required=false, defaultValue="") String lastName) {
+	       return userservice.findNotApprovedUsers(firstName, lastName);
+	   }
+	   @GetMapping("/searchApprovedUsers")
+	   public List<Users> searchApprovedUser(
+	       @RequestParam(name="firstName", required=false, defaultValue="") String firstName,
+	       @RequestParam(name="lastName", required=false, defaultValue="") String lastName) {
+	       return userservice.findApprovedUsers(firstName, lastName);
+	   }
+
    
    
 

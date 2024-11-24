@@ -2,7 +2,6 @@ package com.propilot.performance_management_app.controller;
 
 import com.propilot.performance_management_app.model.Profil;
 import com.propilot.performance_management_app.service.ProfilService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,15 +16,11 @@ public class ProfilController {
     private ProfilService profilService;
 
     // Créer un nouveau profil
-    @PostMapping
-    public ResponseEntity<Profil> createProfil(@Valid @RequestBody Profil profil) {
-        Profil createdProfil = profilService.createProfil(profil);
-        return ResponseEntity.ok(createdProfil);
-    }
+ 
 
     // Mettre à jour un profil existant
     @PutMapping("/{id}")
-    public ResponseEntity<Profil> updateProfil(@PathVariable Long id, @Valid @RequestBody Profil profil) {
+    public ResponseEntity<Profil> updateProfil(@PathVariable Long id,  @RequestBody Profil profil) {
         Profil updatedProfil = profilService.updateProfil(id, profil);
         return ResponseEntity.ok(updatedProfil);
     }

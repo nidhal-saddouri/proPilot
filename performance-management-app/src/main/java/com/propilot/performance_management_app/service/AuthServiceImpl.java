@@ -41,19 +41,18 @@ public class AuthServiceImpl implements AuthService{
 	        user.setRole(role);
 	        user.setVerified(true); 
 	        user.setApproved(false); // L'utilisateur est en attente d'approbation
-	        user.setVerificationToken(UUID.randomUUID().toString()); // Token de vérification
 
 	        // Sauvegarder l'utilisateur dans la base de données
 	        Users newUser = userRepository.save(user);
 
 	        // Envoyer un email pour informer l'utilisateur
-	        sendConfirmationEmail(newUser);
+	        sendEmailBeforeApproval(newUser);
 
 	        return newUser;
 	    }
 
-	    // Méthode pour envoyer un email de confirmation
-	    private void sendConfirmationEmail(Users user) {
+	    // Méthode pour envoyer un email de confirmation avant l'approbation
+	    private void sendEmailBeforeApproval(Users user) {
 	        String to = user.getEmail();
 	        
 	        // Vérifier si l'e-mail est valide

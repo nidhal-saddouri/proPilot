@@ -13,6 +13,7 @@ public interface UserService {
 	 List<Users> findApprovedUsers(String firstName, String lastName) ;
 	 List<Users> findByNotApprovedandRoleName(String roleName);
 	 List<Users> findByApprovedandRoleName(String roleName);
+	 void approveRegistrationUser(Long userId);
 	 }
 
 		

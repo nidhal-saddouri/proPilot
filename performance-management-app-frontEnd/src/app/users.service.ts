@@ -56,4 +56,5 @@ searchApprovedUsers(firstName: string, lastName: string): Observable<any[]> {
     `${this.baseUrl}/searchApprovedUsers?firstName=${firstName}&lastName=${lastName}`
   );
 }
+
 }

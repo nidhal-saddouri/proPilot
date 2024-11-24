@@ -32,8 +32,8 @@ export class SignupService {
   }
   
   // Méthode pour approuver une inscription
-  approveRegistration(id: number): Observable<any> {
-    return this.http.put(`${this.baseUrl}/approve/${id}`, {});
+  approveRegistration(userId: number): Observable<any> {
+    return this.http.put(`${this.baseUrl}/approve/${userId}`, {}, { responseType: 'text' });
   }
 
   // Méthode pour rejeter une inscription

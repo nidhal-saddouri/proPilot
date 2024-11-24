@@ -28,9 +28,7 @@ public class UserServiceImpl implements UserService {
 	  public List<Users> searchUsersByName(String firstName,String lastName) {
 	        return userRepository.findByFirstNameContainingAndLastNameContaining(firstName,lastName);
 	    }
-	// Recherche des utilisateurs par rôle
 	  @Override
-
 	  public List<Users> findByNotApprovedandRoleName(String roleName) {
 	        try {
 	            // Conversion de roleName en enum RoleName
@@ -49,8 +47,6 @@ public class UserServiceImpl implements UserService {
 	        try {
 	            // Conversion de roleName en enum RoleName
 	            RoleName role = RoleName.valueOf(roleName.toUpperCase());
-
-	            // Appeler le repository avec le rôle et le statut "non approuvé"
 	            return userRepository.findByIsApprovedAndRoleRoleName(true, role);
 	        } catch (IllegalArgumentException e) {
 	            throw new RuntimeException("Role not found: " + roleName, e);
@@ -59,12 +55,16 @@ public class UserServiceImpl implements UserService {
 	 
 	  @Override
 	  public List<Users> findNotApprovedUsers(String firstName, String lastName) {
-		    // Utilisation de la méthode repository pour filtrer par prénom et nom
 		    return userRepository.findByIsApprovedAndFirstNameContainingAndLastNameContaining(false, firstName, lastName);
 		}
 	  @Override
 	  public List<Users> findApprovedUsers(String firstName, String lastName) {
-		    // Utilisation de la méthode repository pour filtrer par prénom et nom
 		    return userRepository.findByIsApprovedAndFirstNameContainingAndLastNameContaining(true, firstName, lastName);
 		}
+	  @Override
+	  public void approveRegistrationUser(Long userId) {
+	        Users user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+	        user.setApproved(true); 
+	        userRepository.save(user); 
+	    }
 }

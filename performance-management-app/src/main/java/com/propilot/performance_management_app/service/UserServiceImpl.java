@@ -1,5 +1,10 @@
 package com.propilot.performance_management_app.service;
 
+import java.util.Optional;
+
+
+
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,13 +43,27 @@ public class UserServiceImpl implements UserService {
 	        try {
 	            // Conversion de roleName en enum RoleName
 	            RoleName role = RoleName.valueOf(roleName.toUpperCase());
-
-	            // Appeler le repository avec le rôle et le statut "non approuvé"
 	            return userRepository.findByIsApprovedAndRoleRoleName(false, role);
 	        } catch (IllegalArgumentException e) {
 	            throw new RuntimeException("Role not found: " + roleName, e);
 	        }
 	    }
+	  //eya
+	  @Override
+	  public Users updateUser(Long id, Users updatedUser) throws Exception {
+	        Optional<Users> existingUserOptional = userRepository.findById(id);
+	        if (existingUserOptional.isPresent()) {
+	            Users existingUser = existingUserOptional.get();
+	            existingUser.setFirstName(updatedUser.getFirstName());
+	            existingUser.setLastName(updatedUser.getLastName());
+	            existingUser.setEmail(updatedUser.getEmail());
+	            existingUser.setRole(updatedUser.getRole());
+	         
+
+	            return userRepository.save(existingUser);
+	        } else {
+	            throw new Exception("Utilisateur introuvable avec l'ID : " + id);
+	        }}
 	 
 	  @Override
 
@@ -67,8 +86,60 @@ public class UserServiceImpl implements UserService {
 		    return userRepository.findByIsApprovedAndFirstNameContainingAndLastNameContaining(true, firstName, lastName);
 		}
 	  
+	//eya
+	    
+	    @Override
+	    public ResponseEntity<?> approveRegistrationUser(Long userId) {
+	        try {
+	             Users user = userRepository.findById(userId)
+	                    .orElseThrow(() -> new IllegalArgumentException("Utilisateur non trouvé avec l'ID : " + userId));
+
+	            if (user.isApproved()) {
+	                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("L'utilisateur est déjà approuvé.");
+	            }
+	            user.setApproved(true);
+	            userRepository.save(user);
+	            sendApprovalEmail(user);
+
+	            return ResponseEntity.ok("L'utilisateur a été approuvé avec succès.");
+	        } catch (IllegalArgumentException ex) {
+	            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+	        } catch (Exception ex) {
+	            System.err.println("Erreur lors de l'approbation de l'utilisateur : " + ex.getMessage());
+	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+	                    .body("Erreur inattendue lors de l'approbation de l'utilisateur.");
+	        }
+	    }
+
+	    private void sendApprovalEmail(Users user) {
+	        String to = user.getEmail();
+
+	        if (to == null || to.isEmpty()) {
+	            throw new IllegalArgumentException("L'utilisateur n'a pas d'adresse e-mail valide.");
+	        }
+	        String subject = "Votre compte a été approuvé !";
+	        String text = "Bonjour " + user.getFirstName() + ",\n\n"
+	                + "Nous sommes ravis de vous informer que votre compte sur *ProPilot* a été approuvé avec succès. 🎉\n\n"
+	                + "Vous pouvez maintenant vous connecter et accéder à toutes les fonctionnalités de l'application.\n\n"
+	                + "Cordialement,\nL'équipe ProPilot.";
+
+	        SimpleMailMessage message = new SimpleMailMessage();
+	        message.setTo(to);
+	        message.setSubject(subject);
+	        message.setText(text);
+
+	        try {
+	            mailSender.send(message);
+	            System.out.println("Email d'approbation envoyé à " + to);
+	        } catch (Exception e) {
+	            System.err.println("Erreur lors de l'envoi de l'e-mail d'approbation : " + e.getMessage());
+	            throw new RuntimeException("Impossible d'envoyer l'e-mail d'approbation.");
+	        }
+	    }
+	  
 	  
 	  
 	 
 
 }
+

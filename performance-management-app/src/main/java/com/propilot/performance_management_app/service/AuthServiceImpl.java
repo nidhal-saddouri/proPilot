@@ -2,6 +2,8 @@ package com.propilot.performance_management_app.service;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
@@ -59,6 +61,8 @@ public class AuthServiceImpl implements AuthService{
 	        return newUser;
 	    }
 
+
+	    
 
 	    private void sendEmailBeforeApproval(Users user) {
 	        String to = user.getEmail();

@@ -35,6 +35,15 @@ public class AuthController {
 	            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
 	        }
 	    }
+	  @PutMapping("/approve/{userId}")
+	  public ResponseEntity<String> approveUser(@PathVariable Long userId) {
+	      try {
+	          userservice.approveRegistrationUser(userId); // Appel du service pour approuver l'utilisateur
+	          return ResponseEntity.ok("User approved successfully.");
+	      } catch (Exception e) {
+	          return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error approving user.");
+	      }
+	  }
 	 
 
    

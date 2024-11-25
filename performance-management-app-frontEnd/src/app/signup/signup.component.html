@@ -50,7 +50,8 @@
                   <div class="col-12">
                       <label for="form2ExampleEmail" class="form-label">Email</label>
                       <div class="input-group has-validation">
-                        <span class="input-group-text" id="inputGroupPrepend">@</span>
+                        <span class="input-group-text" id="inputGroupPrepend">&#64;</span>
+
                         <input type="email" class="form-control" formControlName="email" id="form2ExampleEmail"
                           [class.is-invalid]="signupForm.get('email')?.invalid && signupForm.get('email')?.touched">
                         <div *ngIf="signupForm.get('email')?.invalid && signupForm.get('email')?.touched" class="invalid-feedback">

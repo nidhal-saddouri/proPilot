@@ -21,7 +21,7 @@ export interface User {
   providedIn: 'root'
 })
 export class SignupService {
-  private baseUrl = 'http://localhost:8080/api/users';
+  private baseUrl = 'http://localhost:8080/api/auth';
   constructor(private http: HttpClient,private router: Router) { }
   register(user: { firstName: string, lastName: string, email: string, password: string, confirmPassword: string, role: {  roleName: string }}): Observable<any> {
     console.log('Données envoyées au backend:', user); // Vérifiez l'objet envoyé
@@ -30,10 +30,15 @@ export class SignupService {
         catchError((error: any) => throwError(error))
       );
   }
-  verifyEmail(token: string): Observable<any> {
-    return this.http.get(`${this.baseUrl}/verify?token=${token}`)
-      .pipe(
-        catchError((error: any) => throwError(error)) // Handle error appropriately
-      );
+  
+  // Méthode pour approuver une inscription
+  approveRegistration(userId: number): Observable<any> {
+    return this.http.put(`${this.baseUrl}/approve/${userId}`, {}, { responseType: 'text' });
   }
+
+  // Méthode pour rejeter une inscription
+  rejectRegistration(id: number): Observable<any> {
+    return this.http.put(`${this.baseUrl}/reject/${id}`, {});
+  }
+
 }

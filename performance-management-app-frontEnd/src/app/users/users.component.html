@@ -1,0 +1,79 @@
+
+<div class="card-body" @fadeIn>
+    <div class="d-flex align-items-center justify-content-between">
+      <!-- Titre -->
+      <h5 class="card-title m-0">Recent users <span>| Today     </span><button  class="btn btn-primary">
+          <i class="fas fa-plus-circle me-2"></i>Add User
+        </button></h5>
+      <!-- Bouton Ajouter -->
+      
+      <!-- Barre de recherche + Bouton -->
+      <div class="d-flex align-items-center">
+        <select  id="roleSelect"  class="form-control me-3"  id="roleSelect" [(ngModel)]="selectedRole" (change)="searchByRole()">
+          <option value="" disabled>Select Role</option>
+          <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
+        </select>
+        <!-- Barre de recherche -->
+        <input 
+        type="text" 
+        [(ngModel)]="searchQuery" 
+        class="form-control me-3"  
+        placeholder="Search..." 
+        (input)="OnSearch()">
+       
+      </div>
+    
+    </div>
+    
+  
+      <table class="table table-borderless datatable">
+          <thead>
+            <tr>
+              <th  style="width: 50px;" scope="col">#</th>
+              <th scope="col">Username</th>
+              <th class="email-column" scope="col">Email</th>
+              <th scope="col">Role</th>
+
+              <th scope="col">Approval</th>
+              
+              <th scope="col">Status</th>
+              <th scope="col">DateTime</th>
+
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of users; let i = index">
+              <th style="width: 50px;" scope="row"><a href="#">#{{ i + 1 }}</a></th>
+              <td>{{ user.firstName }} {{ user.lastName }}</td>
+              <td ><a href="#" class="email-column" class="text-primary">{{ user.email }}</a></td>
+              <td >{{ user.role.roleName }}</td>
+              <!--td>
+                <span *ngIf="!user.verified" class="badge bg-warning">not verified</span>
+                <span *ngIf="user.verified"  class="badge bg-success">verified</span>
+              </td-->
+              <td>
+                <span *ngIf="!user.approved" class="badge bg-warning">not approved</span>
+                <span *ngIf="user.approved"  class="badge bg-success" >approved</span>
+              </td>
+              <td><span class="badge" [ngClass]="{'bg-success': user.loggedIn, 'bg-danger': !user.loggedIn}">
+                   {{ user.loggedIn ? 'connected' : 'disconnected' }}
+                  </span>
+              </td>
+              <td>{{ user.createdAt }}</td>
+
+   
+  <td>
+    <button  class="btn btn-light border border-primary rounded-pill text-primary py-2 ">
+      <i class="fas fa-pencil-alt"></i> 
+    </button>
+    <button style="margin-left: 10px;"  class="btn btn-primary">
+      <i class="fas fa-trash"></i> 
+    </button>
+  </td>
+  
+            </tr>
+          </tbody>
+        </table>
+  
+    </div>

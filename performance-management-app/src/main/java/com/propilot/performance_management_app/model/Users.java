@@ -31,22 +31,25 @@ public class Users {
 	    @Column(name = "first_name")
 	    private String firstName;
 
+	    @Column(nullable = false)
+	    private boolean status;
+	    
 	    @Column(name = "last_name")
 	    private String lastName;
 
 	    @ManyToOne // Chaque utilisateur a un seul rôle
 	    @JoinColumn(name = "role_id", nullable = false)
-	    private Role role; // Le rôle de l'utilisateur
+	    private Role role; 
 
 	    @Column(name = "is_verified", nullable = false)
 	    private boolean isVerified;
 	    @Column(name = "is_approved", nullable = false)
-	    private boolean isApproved = false; // Par défaut, non approuvé
+	    private boolean isApproved = false;
 
 	    @Column(name = "created_at", nullable = false, updatable = false)
 	    private LocalDateTime createdAt = LocalDateTime.now();
-	    private String verificationToken;
-	    // Getters et setters
+	   
+
 
 	    public Long getId() {
 	        return id;
@@ -109,19 +112,20 @@ public class Users {
 	    public void setApproved(boolean approved) {
 	        isApproved = approved;
 	    }
-	    public String getVerificationToken() {
-	        return verificationToken;
-	    }
-
-	    public void setVerificationToken(String verificationToken) {
-	        this.verificationToken = verificationToken;
-	    }
+	  
 	    public LocalDateTime getCreatedAt() {
 	        return createdAt;
 	    }
 
 	    public void setCreatedAt(LocalDateTime createdAt) {
 	        this.createdAt = createdAt;
+	    }
+	    public boolean isLoggedIn() {
+	        return status;
+	    }
+
+	    public void setLoggedIn(boolean isLoggedIn) {
+	        this.status = isLoggedIn;
 	    }
 
 }

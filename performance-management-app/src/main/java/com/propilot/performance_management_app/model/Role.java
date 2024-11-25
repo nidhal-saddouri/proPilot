@@ -38,7 +38,7 @@ public class Role {
 	    }
 
 	    // Setter for roleName
-	    public void z(RoleName roleName) {
+	    public void setRoleName(RoleName roleName) {
 	        this.roleName = roleName;
 	    }
 	    public Long getId() {

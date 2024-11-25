@@ -7,12 +7,13 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.propilot.performance_management_app.model.Users;
-import com.propilot.performance_management_app.service.UserService;
+import com.propilot.performance_management_app.service.UserServiceImpl;
 
 
 @CrossOrigin(origins = "*")
@@ -20,32 +21,21 @@ import com.propilot.performance_management_app.service.UserService;
 @RequestMapping("/api/users")
 public class UserController {
 	@Autowired
-    private UserService userService;
+    private UserServiceImpl userService;
 	
 	
-	  // Route pour l'inscription de l'utilisateur
-	  @PostMapping("/register")
-	    public ResponseEntity<?> signup(@RequestBody Users user) {
-	        try {
-	            Users newUser = userService.register(user);
-	            return ResponseEntity.status(HttpStatus.CREATED).body(newUser);
-	        } catch (IllegalArgumentException e) {
-	            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
-	        }
-	    }
-
-    // Route pour vérifier l'email de l'utilisateur avec le token
-    @GetMapping("/verify")
-    public ResponseEntity<String> verifyEmail(@PathVariable String token) {
+ 
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateUser(
+            @PathVariable Long id,
+            @RequestBody Users updatedUser
+    ) {
         try {
-            // Log pour confirmer l'entrée dans la méthode
-            System.out.println("Vérification de l'email avec token: " + token);
-            userService.verifyEmail(token);
-            return new ResponseEntity<>("Email vérifié avec succès.", HttpStatus.OK);
-        } catch (IllegalArgumentException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+            Users updated = userService.updateUser(id, updatedUser);
+            return ResponseEntity.ok(updated);
         } catch (Exception e) {
-            return new ResponseEntity<>("Erreur lors de la vérification de l'email.", HttpStatus.INTERNAL_SERVER_ERROR);
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 }
+

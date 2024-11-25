@@ -71,7 +71,7 @@
                   </div>
                   <div class="col-12">
                     <label for="form2ExampleConfirmPassword" class="form-label">Confirm Your Password</label>
-                    <input [type]="showConfirmPassword ? 'text' : 'password'" id="form2ExampleConfirmPassword" formControlName="confirmPassword"  class="form-control" 
+                    <input [type]="showConfirmPassword ? 'text' : 'password'" id="form2ExampleConfirmPassword" formControlName="confirmPassword"  class="form-control"
                     [class.is-invalid]="signupForm.get('confirmPassword')?.invalid && signupForm.get('confirmPassword')?.touched || signupForm.hasError('passwordMismatch')" >
                     <div *ngIf="signupForm.get('confirmPassword')?.invalid && signupForm.get('confirmPassword')?.touched" class="invalid-feedback">
                       Confirmer le mot de passe est requis.
@@ -117,13 +117,13 @@
                   {{ errorMessage }}
                 </div>
 
-               
+
 
 
               </div>
             </div>
 
-            
+
 
           </div>
         </div>

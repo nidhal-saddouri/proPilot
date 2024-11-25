@@ -3,6 +3,10 @@ package com.propilot.performance_management_app.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import com.propilot.performance_management_app.model.Role.RoleName;
@@ -15,7 +19,8 @@ import com.propilot.performance_management_app.repository.UserRepository;
 public class UserServiceImpl implements UserService {
 	@Autowired
     private UserRepository userRepository;
-
+	@Autowired
+    private JavaMailSender mailSender;
 	  @Override
 	    public List<Users> getApprovedUsers() {
 	        return userRepository.findByIsApprovedTrue();
@@ -61,10 +66,8 @@ public class UserServiceImpl implements UserService {
 	  public List<Users> findApprovedUsers(String firstName, String lastName) {
 		    return userRepository.findByIsApprovedAndFirstNameContainingAndLastNameContaining(true, firstName, lastName);
 		}
-	  @Override
-	  public void approveRegistrationUser(Long userId) {
-	        Users user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
-	        user.setApproved(true); 
-	        userRepository.save(user); 
-	    }
+	  
+	  
+	 
+
 }

@@ -11,6 +11,7 @@ import { UsersComponent } from './users/users.component';
 import { FormsModule } from '@angular/forms';
 
 import { UserNotApprovedComponent } from './user-not-approved/user-not-approved.component';
+import { ProfilComponent } from './profil/profil.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { UserNotApprovedComponent } from './user-not-approved/user-not-approved.
     DashboardadminComponent,
     UsersComponent,
     UserNotApprovedComponent,
-    UserNotApprovedComponent
+    UserNotApprovedComponent,
+    ProfilComponent
 
   ],
   imports: [

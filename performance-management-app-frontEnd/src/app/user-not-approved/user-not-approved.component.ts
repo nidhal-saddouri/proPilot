@@ -87,16 +87,20 @@ export class UserNotApprovedComponent {
    // Approuver une inscription
    approveRegistration(userId: number): void {
     const confirmation = window.confirm("Are you sure that you want to approve this user?");
-    
+    this.isLoading = true;
     if (confirmation) {
       this.signupService.approveRegistration(userId).subscribe(
-        (response: string) => {  // L'API renvoie une chaîne de caractères
-          console.log('Inscription approuvée:', response);  // Affiche "User approved successfully."
-          this.loadNotApprovedUsers();  // Recharger les utilisateurs après l'approbation
+        (response: string) => {  
+          
+          console.log('Inscription approuvée:', response); 
+          this.loadNotApprovedUsers();  
+        alert('User approved successfully.');
+        this.isLoading = false;
         },
         (error) => {
           console.error('Erreur lors de l\'approbation:', error);
           this.errorMessage = 'Erreur lors de l\'approbation de l\'inscription.';
+          this.isLoading = false;
         }
       );
     } else {

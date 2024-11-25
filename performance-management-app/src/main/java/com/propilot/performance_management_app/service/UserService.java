@@ -2,6 +2,8 @@ package com.propilot.performance_management_app.service;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
+
 import com.propilot.performance_management_app.model.Users;
 
 
@@ -13,7 +15,6 @@ public interface UserService {
 	 List<Users> findApprovedUsers(String firstName, String lastName) ;
 	 List<Users> findByNotApprovedandRoleName(String roleName);
 	 List<Users> findByApprovedandRoleName(String roleName);
-	 void approveRegistrationUser(Long userId);
 	 }
 
 		

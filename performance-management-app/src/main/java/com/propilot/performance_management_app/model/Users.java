@@ -31,6 +31,9 @@ public class Users {
 	    @Column(name = "first_name")
 	    private String firstName;
 
+	    @Column(nullable = false)
+	    private boolean status;
+	    
 	    @Column(name = "last_name")
 	    private String lastName;
 
@@ -116,6 +119,13 @@ public class Users {
 
 	    public void setCreatedAt(LocalDateTime createdAt) {
 	        this.createdAt = createdAt;
+	    }
+	    public boolean isLoggedIn() {
+	        return status;
+	    }
+
+	    public void setLoggedIn(boolean isLoggedIn) {
+	        this.status = isLoggedIn;
 	    }
 
 }

@@ -1,7 +1,5 @@
 package com.propilot.performance_management_app.service;
 
-import java.util.Optional;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailSender;
@@ -27,49 +25,55 @@ public class AuthServiceImpl implements AuthService{
 	   
 	    @Override
 	    public Users register(Users user) {
-	       
+	        // Vérifiez si l'email est déjà utilisé
 	        if (userRepository.existsByEmail(user.getEmail())) {
 	            throw new IllegalArgumentException("Email déjà utilisé");
 	        }
 
-	        // Assume user.getRole() is an instance of the Role enum
+	        // Obtenez le nom du rôle demandé ou définissez un rôle par défaut
 	        String roleName = user.getRole() != null ? user.getRole().getRoleName().name().toUpperCase() : "EMPLOYEE";
-	        Role role = roleRepository.findByRoleName(Role.RoleName.valueOf(roleName));
-	        if (role == null) {
-	            throw new IllegalArgumentException("Rôle invalide. Choisissez entre 'EMPLOYEE' ou 'MANAGER'");
-	        }
-	        user.setRole(role);
-	        user.setVerified(true); 
-	        user.setApproved(false); // L'utilisateur est en attente d'approbation
 
-	        // Sauvegarder l'utilisateur dans la base de données
+	        // Cherchez le rôle dans la base de données
+	        Role role = roleRepository.findByRoleName(Role.RoleName.valueOf(roleName));
+
+	        // Si le rôle n'existe pas, créez-le automatiquement
+	        if (role == null) {
+	            role = new Role();
+	            role.setRoleName(Role.RoleName.valueOf(roleName));
+	            role = roleRepository.save(role); // Sauvegardez le nouveau rôle dans la base
+	        }
+
+	        // Associez le rôle à l'utilisateur
+	        user.setRole(role);
+
+	        // Configurez les autres propriétés par défaut
+	        user.setVerified(true);  // Par exemple, marquer comme vérifié par défaut
+	        user.setApproved(false); // Par défaut, l'utilisateur n'est pas approuvé
+
+	        // Sauvegardez l'utilisateur dans la base
 	        Users newUser = userRepository.save(user);
 
-	        // Envoyer un email pour informer l'utilisateur
+	        // Envoyez un email avant approbation
 	        sendEmailBeforeApproval(newUser);
 
 	        return newUser;
 	    }
 
-	    // Méthode pour envoyer un email de confirmation avant l'approbation
+
 	    private void sendEmailBeforeApproval(Users user) {
 	        String to = user.getEmail();
 	        
-	        // Vérifier si l'e-mail est valide
 	        if (to == null || to.isEmpty()) {
 	            throw new IllegalArgumentException("L'adresse e-mail de l'utilisateur est invalide.");
 	        }
 
 	        String subject = "Inscription réussie";
 	        String text =  "Bonjour " + user.getFirstName() + ",\n\n"
-	                + "Merci de vous être inscrit sur **ProPilot** ! 🎉 Nous avons bien reçu votre demande d'inscription. "
-	                + "Cependant, avant de pouvoir accéder à toutes les fonctionnalités de l'application, nous devons d'abord approuver votre compte.\n\n"
-	                + "Que se passe-t-il ensuite ?\n\n"
-	                + "- Vous devez attendre l'approbation de l'administrateur, qui vérifiera les informations de votre compte.\n"
-	                + "- Dès que votre compte est approuvé, vous recevrez un autre email confirmant votre accès à l'application.\n\n"
-	                + "Nous vous remercions pour votre patience et restons à votre disposition pour toute question. "
-	                + "N'hésitez pas à nous contacter si vous avez besoin de plus d'informations.\n\n"
-	                + "Cordialement,\nL'équipe de ProPilot";
+	        		+ "Merci pour votre inscription sur **ProPilot** ! Votre demande est en cours de validation.\n\n"
+	        		+ "Nous vous informerons par email dès que votre compte sera approuvé par un administrateur.\n\n"
+	        		+ "Merci pour votre patience.\n\n"
+	        		+ "Cordialement,\nL'équipe ProPilot"
+;
 	        SimpleMailMessage message = new SimpleMailMessage();
 	        message.setTo(to);
 	        message.setSubject(subject);
@@ -77,10 +81,8 @@ public class AuthServiceImpl implements AuthService{
 
 	        try {
 	            mailSender.send(message);
-	            // Log pour confirmer l'envoi
 	            System.out.println("Email de confirmation envoyé à " + to);
 	        } catch (Exception e) {
-	            // Log l'erreur pour le diagnostic
 	            System.err.println("Erreur lors de l'envoi de l'e-mail de confirmation : " + e.getMessage());
 	            throw new RuntimeException("Impossible d'envoyer l'e-mail de confirmation.");
 	        }

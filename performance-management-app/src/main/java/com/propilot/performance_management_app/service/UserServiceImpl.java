@@ -15,7 +15,10 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import com.propilot.performance_management_app.model.Role.RoleName;
+import com.propilot.performance_management_app.email.EmailService;
+import com.propilot.performance_management_app.model.Role;
 import com.propilot.performance_management_app.model.Users;
+import com.propilot.performance_management_app.repository.RoleRepository;
 import com.propilot.performance_management_app.repository.UserRepository;
 
 
@@ -23,9 +26,12 @@ import com.propilot.performance_management_app.repository.UserRepository;
 @Service
 public class UserServiceImpl implements UserService {
 	@Autowired
-    private UserRepository userRepository;
+    private RoleRepository roleRepository;
 	@Autowired
-    private JavaMailSender mailSender;
+    private UserRepository userRepository;
+	
+	@Autowired
+	private EmailService emailService;
 	  @Override
 	    public List<Users> getApprovedUsers() {
 	        return userRepository.findByIsApprovedTrue();
@@ -99,7 +105,7 @@ public class UserServiceImpl implements UserService {
 	            }
 	            user.setApproved(true);
 	            userRepository.save(user);
-	            sendApprovalEmail(user);
+	            emailService.sendValidationEmail(user);
 
 	            return ResponseEntity.ok("L'utilisateur a été approuvé avec succès.");
 	        } catch (IllegalArgumentException ex) {
@@ -111,31 +117,29 @@ public class UserServiceImpl implements UserService {
 	        }
 	    }
 
-	    private void sendApprovalEmail(Users user) {
-	        String to = user.getEmail();
+	   
+	    
+	    
+	    @Override
+		  public Users AddUser(Users user) {
+	    	 if (userRepository.existsByEmail(user.getEmail())) {
+		            throw new IllegalArgumentException("Email déjà utilisé");
+		        }
+		        String roleName = user.getRole() != null ? user.getRole().getRoleName().name().toUpperCase() : "EMPLOYEE";
+		        Role role = roleRepository.findByRoleName(Role.RoleName.valueOf(roleName));
 
-	        if (to == null || to.isEmpty()) {
-	            throw new IllegalArgumentException("L'utilisateur n'a pas d'adresse e-mail valide.");
-	        }
-	        String subject = "Votre compte a été approuvé !";
-	        String text = "Bonjour " + user.getFirstName() + ",\n\n"
-	                + "Nous sommes ravis de vous informer que votre compte sur *ProPilot* a été approuvé avec succès. 🎉\n\n"
-	                + "Vous pouvez maintenant vous connecter et accéder à toutes les fonctionnalités de l'application.\n\n"
-	                + "Cordialement,\nL'équipe ProPilot.";
+		       if (role == null) {
+		            role = new Role();
+		            role.setRoleName(Role.RoleName.valueOf(roleName));
+		            role = roleRepository.save(role); 
+		        }
+		        user.setRole(role);
 
-	        SimpleMailMessage message = new SimpleMailMessage();
-	        message.setTo(to);
-	        message.setSubject(subject);
-	        message.setText(text);
-
-	        try {
-	            mailSender.send(message);
-	            System.out.println("Email d'approbation envoyé à " + to);
-	        } catch (Exception e) {
-	            System.err.println("Erreur lors de l'envoi de l'e-mail d'approbation : " + e.getMessage());
-	            throw new RuntimeException("Impossible d'envoyer l'e-mail d'approbation.");
-	        }
-	    }
+		        user.setVerified(true);  
+		        user.setApproved(false); 
+		        Users newUser = userRepository.save(user);
+		        return newUser;
+		    }
 	  
 	  
 	  

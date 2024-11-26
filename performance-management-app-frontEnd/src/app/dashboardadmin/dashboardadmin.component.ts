@@ -7,8 +7,16 @@ import { User, UsersService } from '../users.service';
   styleUrls: ['./dashboardadmin.component.css']
 })
 export class DashboardadminComponent {
+  showAddUserForm: boolean = false;
+  showUserForm: boolean  = false;
+
   users: User[]=[];
   constructor(private userService: UsersService){}
+  toggleAddUserForm() {
+    this.showUserForm = false;
+
+    this.showAddUserForm = true;
+  }
 
 
 }

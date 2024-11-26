@@ -2,16 +2,16 @@ package com.propilot.performance_management_app.service;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.mail.MailSender;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 
+import com.propilot.performance_management_app.email.EmailService;
 import com.propilot.performance_management_app.model.Role;
 import com.propilot.performance_management_app.model.Users;
 import com.propilot.performance_management_app.repository.RoleRepository;
 import com.propilot.performance_management_app.repository.UserRepository;
+
+import jakarta.mail.MessagingException;
 
 @Service
 public class AuthServiceImpl implements AuthService{
@@ -21,13 +21,16 @@ public class AuthServiceImpl implements AuthService{
 	    @Autowired
 	    private RoleRepository roleRepository;
 
+	    
+	    @Autowired
+		private EmailService emailService;
 	    @Autowired
 	    private MailSender mailSender;
 
 	   
 	    @Override
 	    public Users register(Users user) {
-	        // Vérifiez si l'email est déjà utilisé
+	        
 	        if (userRepository.existsByEmail(user.getEmail())) {
 	            throw new IllegalArgumentException("Email déjà utilisé");
 	        }
@@ -56,7 +59,14 @@ public class AuthServiceImpl implements AuthService{
 	        Users newUser = userRepository.save(user);
 
 	        // Envoyez un email avant approbation
-	        sendEmailBeforeApproval(newUser);
+	        try {
+	            emailService.sendRegistrationEmail(newUser);
+	        } catch (MessagingException e) {
+	            System.err.println("Erreur lors de l'envoi de l'email : " + e.getMessage());
+	        
+	        }
+ 
+	        
 
 	        return newUser;
 	    }
@@ -64,32 +74,6 @@ public class AuthServiceImpl implements AuthService{
 
 	    
 
-	    private void sendEmailBeforeApproval(Users user) {
-	        String to = user.getEmail();
-	        
-	        if (to == null || to.isEmpty()) {
-	            throw new IllegalArgumentException("L'adresse e-mail de l'utilisateur est invalide.");
-	        }
-
-	        String subject = "Inscription réussie";
-	        String text =  "Bonjour " + user.getFirstName() + ",\n\n"
-	        		+ "Merci pour votre inscription sur **ProPilot** ! Votre demande est en cours de validation.\n\n"
-	        		+ "Nous vous informerons par email dès que votre compte sera approuvé par un administrateur.\n\n"
-	        		+ "Merci pour votre patience.\n\n"
-	        		+ "Cordialement,\nL'équipe ProPilot"
-;
-	        SimpleMailMessage message = new SimpleMailMessage();
-	        message.setTo(to);
-	        message.setSubject(subject);
-	        message.setText(text);
-
-	        try {
-	            mailSender.send(message);
-	            System.out.println("Email de confirmation envoyé à " + to);
-	        } catch (Exception e) {
-	            System.err.println("Erreur lors de l'envoi de l'e-mail de confirmation : " + e.getMessage());
-	            throw new RuntimeException("Impossible d'envoyer l'e-mail de confirmation.");
-	        }
-	    }
+	   
 	 
 }

@@ -88,6 +88,14 @@ private UserService userservice;
 	   }
 	   
 	   
+		 @PostMapping("/AddUser")
+		    public ResponseEntity<Users> AddUser(@RequestBody Users user) {
+			
+		        Users createdUser = userservice.AddUser(user);
+		        return ResponseEntity.ok(createdUser);
+		    }
+	   
+	   
    
    
 

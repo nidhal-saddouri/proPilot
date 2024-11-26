@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { User, UsersService } from '../users.service';
 import { Router } from '@angular/router';
 import { Role } from '../users.service';
@@ -21,8 +21,11 @@ export class UsersComponent {
   searchQuery: string = '';
 
   constructor(    private userService: UsersService, private router: Router) {}
-
-
+  @Output() addUserEvent = new EventEmitter<void>();
+  onAddUser() {
+    // Émettre l'événement pour indiquer qu'on veut afficher le formulaire
+    this.addUserEvent.emit();
+  }
   ngOnInit() {
       this.loadUsers();
   }

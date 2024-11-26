@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .email-container {
+            max-width: 600px;
+            margin: 20px auto;
+            background: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background-color: #28a745;
+            color: #ffffff;
+            text-align: center;
+            padding: 20px;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .content {
+            padding: 20px;
+        }
+        .content p {
+            line-height: 1.6;
+            color: #333333;
+            margin: 10px 0;
+        }
+        .footer {
+            text-align: center;
+            padding: 15px;
+            background-color: #f4f4f4;
+            font-size: 12px;
+            color: #666666;
+        }
+        .button {
+            display: inline-block;
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<div class="email-container">
+    <div class="header">
+        <h1>Félicitations, votre compte a été validé !</h1>
+    </div>
+    <div class="content">
+        <p>Bonjour <span th:text="${firstName}">Utilisateur</span>,</p>
+        <p>Nous avons le plaisir de vous informer que votre compte a été validé avec succès 🎉.</p>
+        <p>Vous pouvez maintenant vous connecter à l'application <strong>ProPilot</strong> et commencer à l'utiliser !</p>
+        <p>Nous vous remercions de votre patience et nous réjouissons de vous avoir parmi nous.</p>
+        <p>
+            <a href="http://your-app-url/login" class="button">Se connecter</a>
+        </p>
+    </div>
+    <div class="footer">
+        &copy; 2024 ProPilot | Tous droits réservés.
+    </div>
+</div>
+</body>
+</html>

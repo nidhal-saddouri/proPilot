@@ -155,7 +155,8 @@
                     <!-- Recent Sales -->
                     <div class="col-12">
                       <div class="card recent-sales overflow-auto">
-                        <app-users></app-users>
+                        <app-users  *ngIf="!showAddUserForm " (addUserEvent)="toggleAddUserForm()" ></app-users>
+                        <app-add-user   *ngIf="showAddUserForm" ></app-add-user>
                                            
                      </div>
                      <div class="card recent-sales overflow-auto">

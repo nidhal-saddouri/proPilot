@@ -13,21 +13,20 @@ import { FormsModule } from '@angular/forms';
 
 import { UserNotApprovedComponent } from './user-not-approved/user-not-approved.component';
 import { ProfilComponent } from './profil/profil.component';
+import { AddUserComponent } from './add-user/add-user.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     SignupComponent,
-
 UpdateUserComponent,
-
-
     DashboardadminComponent,
     UsersComponent,
     UserNotApprovedComponent,
     UserNotApprovedComponent,
-    ProfilComponent
+    ProfilComponent,
+    AddUserComponent
 
 
   ],

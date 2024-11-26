@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 export interface Role {
   id: number;
   roleName: string;
@@ -57,4 +57,13 @@ searchApprovedUsers(firstName: string, lastName: string): Observable<any[]> {
   );
 }
 
-}
+
+
+AddUser(user: { firstName: string, lastName: string, email: string, password: string, confirmPassword: string, role: {  roleName: string }}): Observable<any> {
+  console.log('Données envoyées au backend:', user); // Vérifiez l'objet envoyé
+  return this.http.post(`${this.baseUrl}/AddUser`, user)
+    .pipe(
+      catchError((error: any) => throwError(error))
+    );
+
+} }

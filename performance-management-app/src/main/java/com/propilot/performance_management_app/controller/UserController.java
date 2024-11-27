@@ -94,6 +94,17 @@ private UserService userservice;
 		        Users createdUser = userservice.AddUser(user);
 		        return ResponseEntity.ok(createdUser);
 		    }
+	
+		 
+		   @PutMapping("/profil/{id}")
+		   public ResponseEntity<Users> updateProfil(@PathVariable Long id, @RequestBody Users userDetails) {
+		       try {
+		           Users updatedProfil = userservice.updateProfil(id, userDetails);
+		           return ResponseEntity.ok(updatedProfil);
+		       } catch (RuntimeException e) {
+		           return ResponseEntity.notFound().build();
+		       }
+		   }
 	   
 	   
    

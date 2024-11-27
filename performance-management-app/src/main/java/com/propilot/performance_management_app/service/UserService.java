@@ -18,6 +18,7 @@ public interface UserService {
 	 List<Users> findByNotApprovedandRoleName(String roleName);
 	 List<Users> findByApprovedandRoleName(String roleName);
 	 Users AddUser(Users users);
+	Users updateProfil(Long id, Users userDetails);
 	 
 	 }
 

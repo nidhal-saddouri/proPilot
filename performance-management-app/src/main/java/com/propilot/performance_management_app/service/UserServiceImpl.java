@@ -140,6 +140,27 @@ public class UserServiceImpl implements UserService {
 		        Users newUser = userRepository.save(user);
 		        return newUser;
 		    }
+	    @Override
+		  public Users updateProfil(Long id, Users userDetails) {
+		      Users existingUser = userRepository.findById(id)
+		          .orElseThrow(() -> new RuntimeException("User not found"));
+
+		      // Met à jour les informations
+		      existingUser.setFirstName(userDetails.getFirstName());
+		      existingUser.setLastName(userDetails.getLastName());
+		      existingUser.setEmail(userDetails.getEmail());
+
+		      // Met à jour le rôle si nécessaire
+		      if (userDetails.getRole() != null && userDetails.getRole().getRoleName() != null) {
+		          Role role = roleRepository.findByRoleName(userDetails.getRole().getRoleName());
+		          if (role == null) {
+		              throw new IllegalArgumentException("Invalid role");
+		          }
+		          existingUser.setRole(role);
+		      }
+
+		      return userRepository.save(existingUser);
+		  }
 	  
 	  
 	  

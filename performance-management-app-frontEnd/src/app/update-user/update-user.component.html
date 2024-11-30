@@ -1,0 +1,69 @@
+<main>
+  <div class="container">
+
+    <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4" >
+      <div class="shape circle-1"></div>
+ <div class="shape circle-2"></div>
+ <div class="shape triangle"></div>
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+
+            <div class="d-flex justify-content-center py-4">
+              <a href="index.html" class="logo d-flex align-items-center w-auto">
+                <img src="assets/img/logo.png" alt="">
+                <span class="d-none d-lg-block"><i class="fas fa-cog me-3">  <span class="custom-font">ProPilot</span></i></span>
+              </a>
+            </div><!-- End Logo -->
+
+            <div class="card mb-3">
+
+              <div class="card-body">
+
+                <div class="pt-4 pb-2">
+                  <h5 class="card-title text-center pb-0 fs-4">Update User</h5>
+                  <p class="text-center small">Modify the user's details below</p>
+                </div>
+
+                <!-- Form for Updating User -->
+                <form class="row g-3 needs-validation" novalidate>
+                  <div class="col-12">
+                    <label for="updateFirstName" class="form-label">First Name</label>
+                    <input type="text" id="updateFirstName" class="form-control" required>
+                    <div class="invalid-feedback">First name is required!</div>
+                  </div>
+
+                  <div class="col-12">
+                    <label for="updateLastName" class="form-label">Last Name</label>
+                    <input type="text" id="updateLastName" class="form-control" required>
+                    <div class="invalid-feedback">Last name is required!</div>
+                  </div>
+
+                  <div class="col-12">
+                    <label for="updateEmail" class="form-label">Email</label>
+                    <input type="email" id="updateEmail" class="form-control" required>
+                    <div class="invalid-feedback">A valid email is required!</div>
+                  </div>
+
+                  <div class="col-12">
+                    <label for="updateRole" class="form-label">Role</label>
+                    <select id="updateRole" class="form-control" required>
+                      <option value="" disabled selected>Select a role</option>
+                      <option value="MANAGER">MANAGER</option>
+                      <option value="EMPLOYEE">EMPLOYEE</option>
+                    </select>
+                    <div class="invalid-feedback">Please select a role!</div>
+                  </div>
+
+                  <div class="col-12">
+                    <button class="btn btn-primary w-100" type="submit">Update User</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>

@@ -1,0 +1,68 @@
+<main>
+  <div class="container">
+    <div class="d-flex align-items-center justify-content-between">
+      <h5 class="card-title m-0">Users not approved <span>| Today     </span></h5>
+      <div class="d-flex align-items-center">
+        <select  id="roleSelect"  class="form-control me-3"  id="roleSelect" [(ngModel)]="selectedRole" (change)="searchByRole()">
+          <option value="" disabled>Select Role</option>
+          <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
+        </select>
+        <!-- Barre de recherche -->
+        <input
+          type="text"
+          [(ngModel)]="searchQuery"
+          class="form-control me-3"
+          placeholder="Search..."
+          (input)="OnSearch()">
+
+      </div>
+      <!-- Barre de recherche + Bouton -->
+
+
+    </div>
+    <section class="section">
+
+
+      <div *ngIf="isLoading" class="alert alert-info">Chargement des inscriptions...</div>
+      <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+
+      <div class="registration-list">
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th  style="width: 50px;" scope="col">#</th>
+            <th>Nom</th>
+            <th  style="width: 200px;">Email</th>
+            <th>Rôle</th>
+            <th>Approval</th>
+            <th>DateTime</th>
+            <th>Actions</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let user of users; let i = index">
+            <th style="width: 50px;" scope="row"><a href="#">#{{ i + 1 }}</a></th>
+            <td>{{ user.firstName }} {{ user.lastName }}</td>  <!-- Vérifiez que les propriétés sont bien accessibles -->
+            <td><a href="#" class="email-column" class="text-primary">{{ user.email }}</a></td>
+            <td>{{ user.role ? user.role.roleName : 'N/A' }}</td>  <!-- Si role peut être null, utilisez un opérateur de sécurité -->
+            <td>
+              <span *ngIf="!user.approved" class="badge bg-warning">not approved</span>
+              <span *ngIf="user.approved" class="badge bg-success">approved</span>
+            </td>
+            <td>{{ user.createdAt | date:'short' }}</td>  <!-- Formater la date -->
+            <td>
+              <button (click)="approveRegistration(user.id)" class="btn btn-border-primary custom-btn" style="color: #28a745;">
+                <i class="fas fa-check fa-lg"></i>
+              </button>
+              <button (click)="rejectRegistration(user.id)" class="btn btn-border-primary custom-btn-reject" style="color: #dc3545 ; margin-left: 10px;">
+                <i class="fas fa-times fa-lg"></i>
+              </button>
+            </td>
+          </tr>
+          </tbody>
+
+        </table>
+      </div>
+    </section>
+  </div>
+</main>

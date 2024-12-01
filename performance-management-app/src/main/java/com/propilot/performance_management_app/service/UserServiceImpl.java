@@ -16,7 +16,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.propilot.performance_management_app.model.Role;
 import com.propilot.performance_management_app.model.Token;
+import com.propilot.performance_management_app.DTO.SignupRequest;
 import com.propilot.performance_management_app.email.EmailService;
 import com.propilot.performance_management_app.model.Users;
 import com.propilot.performance_management_app.repository.RoleRepository;
@@ -39,7 +41,8 @@ public class UserServiceImpl {
 	
 	@Autowired
 	private PasswordEncoder bcrybt;
-
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	@Autowired
 	private EmailService emailService;
 	
@@ -81,11 +84,11 @@ public class UserServiceImpl {
 	            existingUser.setLastName(updatedUser.getLastName());
 	            existingUser.setEmail(updatedUser.getEmail());
 	            existingUser.setRole(updatedUser.getRole());
-
 	            return userRepository.save(existingUser);
 	        } else {
 	            throw new Exception("Utilisateur introuvable avec l'ID : " + id);
-	        }}
+	        }
+	        }
 
 	  public List<Users> findByApprovedandRoleName(String roleName) {
 	        try {
@@ -129,25 +132,30 @@ public class UserServiceImpl {
 	    }
 
 	    //ajoutercompte
-//		  public Users AddUser(Users user) {
-//	    	 if (userRepository.existsByEmail(user.getEmail())) {
-//		            throw new IllegalArgumentException("Email déjà utilisé");
-//		        }
-//		        String roleName = user.getRole() != null ? user.getRole().getRoleName().name().toUpperCase() : "EMPLOYEE";
-//		        Role role = roleRepository.findByRoleName(Role.RoleName.valueOf(roleName));
-//
-//		       if (role == null) {
-//		            role = new Role();
-//		            role.setRoleName(Role.RoleName.valueOf(roleName));
-//		            role = roleRepository.save(role);
-//		        }
-//		        user.setRole(role);
-//
-//		        user.setVerified(true);
-//		        user.setApproved(false);
-//		        Users newUser = userRepository.save(user);
-//		        return newUser;
-//		    }
+	  public Users AddUser(SignupRequest signupRequest) {
+		  if (userRepository.existsByEmail(signupRequest.getEmail())) {
+	            throw new IllegalArgumentException("Email déjà utilisé");
+	        }
+	        Role role = roleRepository.findByRoleName(signupRequest.getRole());
+			Users user = new Users();
+	        user.setRole(role);
+			user.setPassword(signupRequest.getPassword());
+			user.setFirstName(signupRequest.getFirstName());
+			user.setLastName(signupRequest.getLastName());
+			user.setEmail(signupRequest.getEmail());
+	        user.setVerified(true);
+	        user.setApproved(false);
+	        Users newUser = userRepository.save(user);
+	        try {emailService.sendAdminAddUserEmail(newUser);
+	        } catch (MessagingException e) {
+		            System.err.println("Erreur lors de l'envoi de l'email : " + e.getMessage());
+
+	        }
+	        return newUser;
+
+		    }
+	  
+	
 
 	    //khedmtkkk
 		public AuthenticationResponse authenticate(AuthenticationRequest authenticationRequest) {

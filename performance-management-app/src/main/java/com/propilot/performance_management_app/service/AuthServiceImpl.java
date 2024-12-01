@@ -46,13 +46,11 @@ public class AuthServiceImpl {
 	        user.setVerified(true);
 	        user.setApproved(false);
 	        Users newUser = userRepository.save(user);
+	        try {emailService.sendRegistrationEmail(newUser);
+        } catch (MessagingException e) {
+	            System.err.println("Erreur lors de l'envoi de l'email : " + e.getMessage());
 
-//	        try {
-//	            //emailService.sendRegistrationEmail(newUser);
-//	        } catch (MessagingException e) {
-//	            System.err.println("Erreur lors de l'envoi de l'email : " + e.getMessage());
-//
-//	        }
+        }
 	        return newUser;
 	    }
 

@@ -29,6 +29,9 @@ export class UsersComponent {
   ngOnInit() {
       this.loadUsers();
   }
+  getRole(user: any) {
+    return user.authorities ? user.authorities[0].authority : 'No role'; // Vérifiez la structure de 'authorities'
+  }
 
   // Méthode pour récupérer les utilisateurs
   loadUsers(): void {

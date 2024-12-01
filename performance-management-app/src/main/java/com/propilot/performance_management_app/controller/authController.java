@@ -16,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,8 +45,7 @@ private UserServiceImpl userservice;
 
     @PostMapping("/login")
     public ResponseEntity<AuthenticationResponse> authenticate(
-            @RequestBody @Valid AuthenticationRequest authenticationRequest
-    ){
+            @RequestBody @Valid AuthenticationRequest authenticationRequest){
         return ResponseEntity.ok(userservice.authenticate(authenticationRequest));
     }
 
@@ -59,6 +59,7 @@ private UserServiceImpl userservice;
 	            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
 	        }
 	    }
+	 
 
 	  @PutMapping("/approve/{userId}")
 	  public ResponseEntity<String> approveUser(@PathVariable Long userId) {

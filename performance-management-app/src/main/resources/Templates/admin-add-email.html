@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .email-container {
+            max-width: 600px;
+            margin: 20px auto;
+            background: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e0e0e0;
+        }
+        .header {
+            background-color: #007b8e;
+            color: #ffffff;
+            text-align: center;
+            padding: 20px;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 26px;
+        }
+        .header h2 {
+            margin: 5px 0 0;
+            font-size: 18px;
+            font-weight: normal;
+            color: #d4f1f4;
+        }
+        .content {
+            padding: 25px;
+            line-height: 1.8;
+            color: #333333;
+        }
+        .content p {
+            margin: 15px 0;
+            font-size: 16px;
+        }
+        .content .credentials {
+            background: #f9f9f9;
+            border: 1px solid #e0e0e0;
+            padding: 10px 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        .cta {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .cta a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007b8e;
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .cta a:hover {
+            background-color: #005a65;
+        }
+        .footer {
+            text-align: center;
+            padding: 15px;
+            background-color: #f4f4f4;
+            font-size: 12px;
+            color: #666666;
+            border-top: 1px solid #e0e0e0;
+        }
+        .footer p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+<div class="email-container">
+    <div class="header">
+        <h1>Bienvenue sur ProPilot, <span th:text="${firstName}">Utilisateur</span>!</h1>
+        <h2>Votre outil de gestion de performance</h2>
+    </div>
+    <div class="content">
+        <p>Bonjour <strong th:text="${firstName}">[Nom de l'utilisateur]</strong>,</p>
+        <p>
+            Nous avons le plaisir de vous informer que vous avez été ajouté à <strong>ProPilot</strong> 
+            par un administrateur. Vous pouvez désormais accéder à notre plateforme pour commencer à gérer 
+            vos projets et vos activités.
+        </p>
+        <p>Voici vos informations de connexion :</p>
+        <div class="credentials">
+            <p><strong>Email :</strong> <span th:text="${email}">[Email]</span></p>
+            <p><strong>Mot de passe :</strong> <span th:text="${password}">[Mot de passe]</span></p>
+        </div>
+        <div class="cta">
+            <a href="http://www.propilot-app.com/login" target="_blank">Se connecter à ProPilot</a>
+        </div>
+        <p>Merci de nous faire confiance, et bienvenue dans la communauté ProPilot ! 🚀</p>
+    </div>
+    <div class="footer">
+        <p>&copy; 2024 ProPilot | Tous droits réservés.</p>
+        <p>
+            Vous recevez cet email car votre compte a été créé par un administrateur. 
+            Si ce n'était pas vous, veuillez nous contacter immédiatement.
+        </p>
+    </div>
+</div>
+</body>
+</html>

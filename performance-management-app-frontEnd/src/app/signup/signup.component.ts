@@ -55,7 +55,7 @@ export class SignupComponent {
       const { firstName, lastName, email, password, confirmPassword, role } = this.signupForm.value;
 
       // Appeler le service d'inscription
-      this.signupService.register({ firstName, lastName, email, password, confirmPassword,   role: { roleName: role } }).subscribe(
+      this.signupService.register({ firstName, lastName, email, password, confirmPassword,   role: role  }).subscribe(
         response => {
           // Désactiver le message d'attente et afficher un message de succès
           this.isLoading = false;

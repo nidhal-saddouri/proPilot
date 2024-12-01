@@ -57,7 +57,17 @@ public class EmailService {
 
         sendHtmlEmail(user.getEmail(), subject, htmlContent);
     }
+    public void sendAdminAddUserEmail(Users user) throws MessagingException {
+        String subject = "Vous avez été ajouté à ProPilot";
 
+        Context context = new Context();
+        context.setVariable("firstName", user.getFirstName());
+        context.setVariable("password", user.getPassword());
+        context.setVariable("email", user.getEmail());
+        String htmlContent = templateEngine.process("admin-add-email", context);
+
+        sendHtmlEmail(user.getEmail(), subject, htmlContent);
+    }
 
 
     private void sendHtmlEmail(String to, String subject, String htmlContent) throws MessagingException {
@@ -72,5 +82,7 @@ public class EmailService {
 
             mailSender.send(message);
     }
+    
+    
 
 }

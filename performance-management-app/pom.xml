@@ -100,11 +100,12 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-    <groupId>org.projectlombok</groupId>
-    <artifactId>lombok</artifactId>
-    <optional>true</optional>
-</dependency>
+	  <dependency>
+        <groupId>org.projectlombok</groupId>
+        <artifactId>lombok</artifactId>
+        <version>1.18.24</version> <!-- Utilisez la dernière version stable disponible -->
+        <scope>provided</scope> <!-- "provided" signifie qu'il est nécessaire pour la compilation mais ne sera pas inclus dans le JAR final -->
+    </dependency>
 	</dependencies>
 
 	<build>

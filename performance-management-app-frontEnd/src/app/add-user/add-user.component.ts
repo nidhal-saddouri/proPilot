@@ -16,7 +16,7 @@ export class AddUserComponent {
   showPassword = false;
   showConfirmPassword = false;
   isLoading = false; // Indique si la requête est en cours
-  constructor(private fb: FormBuilder, private userservice : UsersService, private router: Router) {
+  constructor(private fb: FormBuilder, private userservice : UsersService, private signupService: SignupService, private router: Router) {
     this.addUserForm = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -32,7 +32,7 @@ export class AddUserComponent {
       const { firstName, lastName,password, confirmPassword, email, role } = this.addUserForm.value;
 
       // Appeler le service d'inscription
-      this.userservice.AddUser({ firstName, lastName, email, password, confirmPassword,   role: { roleName: role } }).subscribe(
+      this.userservice.AddUser({ firstName, lastName, email, password, confirmPassword,   role: role }).subscribe(
         response => {
           this.successMessage = 'User added successfully.';
           this.errorMessage = null;

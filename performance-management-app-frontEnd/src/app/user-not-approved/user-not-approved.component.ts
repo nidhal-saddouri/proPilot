@@ -27,11 +27,14 @@ export class UserNotApprovedComponent {
   ngOnInit(): void {
     this.loadNotApprovedUsers();
   }
-
+  getRole(user: any) {
+    return user.authorities ? user.authorities[0].authority : 'No role'; // Vérifiez la structure de 'authorities'
+  }
   // Charger les utilisateurs non approuvés
   loadNotApprovedUsers(): void {
     this.userService.getNotApprovedUsers().subscribe(
       (data) => {
+        console.log(data);  // Ajouter ceci pour vérifier la structure des données
         this.users = data;
         this.formatUserDates(); 
         this.isLoading = false;
@@ -41,7 +44,6 @@ export class UserNotApprovedComponent {
         this.isLoading = false;
       }
     );
-  
   }
 
     // Fonction pour effectuer la recherche par rôle
@@ -124,12 +126,12 @@ export class UserNotApprovedComponent {
   }
   formatUserDates() {
     this.formattedUsers = this.users.map(user => {
-      const createdAtDate = new Date(user.createdAt);  // Convertir created_at en Date
-      user.createdAt= createdAtDate.toLocaleString();  // Convertir en chaîne lisible
+      // Convertir createdAt en un objet Date
+      const createdAtDate = new Date(user.createdAt);  // Assurez-vous que user.createdAt est bien une chaîne ISO
+      user.createdAt = createdAtDate.toLocaleString();  // Convertir en une chaîne lisible
       return user;
     });
-
-}
+  }
 
 
 }

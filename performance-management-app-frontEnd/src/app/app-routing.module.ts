@@ -16,7 +16,7 @@ const routes: Routes = [
   { path: 'reset-password', component: ResetPasswordComponent },
   { path: 'update-user/:id', component: UpdateUserComponent },
   { path: 'user-not-approved', component: UserNotApprovedComponent },
-  { path: 'user-dashbord', component: DashboardadminComponent},
+  { path: 'admin-dashboard', component: DashboardadminComponent},
 
 
 ];

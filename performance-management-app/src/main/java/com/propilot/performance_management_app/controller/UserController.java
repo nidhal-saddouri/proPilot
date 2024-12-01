@@ -2,13 +2,14 @@ package com.propilot.performance_management_app.controller;
 
 import java.util.List;
 
-
+import com.propilot.performance_management_app.DTO.SignupRequest;
 import com.propilot.performance_management_app.model.Users;
 import com.propilot.performance_management_app.service.AuthenticationRequest;
 import com.propilot.performance_management_app.service.AuthenticationResponse;
 import com.propilot.performance_management_app.service.UserServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,19 +33,7 @@ public class UserController {
     private UserServiceImpl userservice;
 	
 	
-	  @PutMapping("/{id}")
-	    public ResponseEntity<?> updateUser(
-	            @PathVariable Long id,
-	            @RequestBody Users updatedUser
-	    ) {
-	        try {
-	            Users updated = userservice.updateUser(id, updatedUser);
-	            return ResponseEntity.ok(updated);
-	        } catch (Exception e) {
-	            return ResponseEntity.badRequest().body(e.getMessage());
-	        }
-	    }
-
+	  
 	 @GetMapping("users-approved")
 	    public List<Users> getUsers() {
 	        return userservice.getApprovedUsers();
@@ -86,12 +75,25 @@ public class UserController {
 	   }
 
 		 @PostMapping("/AddUser")
-		    public ResponseEntity<Users> AddUser(@RequestBody Users user) {
-			
-		        //Users createdUser = userservice.AddUser(user);
-		        //return ResponseEntity.ok(createdUser);
-			 return null;
+		 public ResponseEntity<?> signup(@RequestBody SignupRequest user) {
+	          System.out.println(user.getRole());
+		        try {
+		            Users newUser = userservice.AddUser(user);
+		            return ResponseEntity.status(HttpStatus.CREATED).body(newUser);
+		        } catch (IllegalArgumentException e) {
+		            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+		        }
 		    }
+		 @PutMapping("/update/{id}")
+		    public ResponseEntity<?> updateUser(@PathVariable Long id, @RequestBody Users updatedUser) {
+		        try {
+		            Users user = userservice.updateUser(id, updatedUser);
+		            return ResponseEntity.ok(user);
+		        } catch (Exception e) {
+		            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Erreur : " + e.getMessage());
+		        }
+		    }
+		 
 		 
 //		    @PostMapping("/auth")
 //		    public ResponseEntity<AuthenticationResponse> authenticate(

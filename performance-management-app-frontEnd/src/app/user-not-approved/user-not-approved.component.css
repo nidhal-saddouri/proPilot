@@ -1,0 +1,114 @@
+
+.card {
+    margin-bottom: 30px;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0px 0 30px rgba(1, 41, 112, 0.1);
+  }
+  
+  .card-header,
+  .card-footer {
+    border-color: #ebeef4;
+    background-color: #fff;
+    color: #798eb3;
+    padding: 15px;
+  }
+  
+  .card-title {
+    padding: 20px 0 15px 0;
+    font-size: 18px;
+    font-weight: 500;
+    color: #012970;
+    font-family: "Poppins", sans-serif;
+  }
+  
+  .card-title span {
+    color: #899bbd;
+    font-size: 14px;
+    font-weight: 400;
+  }
+  
+  .card-body {
+    padding: 0 20px 20px 20px;
+  }
+  
+  .card-img-overlay {
+    background-color: rgba(255, 255, 255, 0.6);
+  }
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  .fade-in {
+    animation: fadeIn 1s ease-in-out;
+  }
+  
+  @keyframes animate-loading {
+    0% {
+      transform: rotate(0deg);
+    }
+  
+    100% {
+      transform: rotate(360deg);
+    }
+  }.custom-orange {
+    background-color: #ea680b;  /* Couleur orange */
+    color: white;  /* Texte en blanc pour un meilleur contraste */
+  }
+  .status-not-started{
+    background-color: #fad9d9; /* bleu clair */
+    color: #b10000; /* bleu foncé */
+    padding: 5px 10px;
+    border-radius: 12px;
+    font-weight: bold;
+  }
+  .status-pending {
+    background-color: #fff3bf; /* jaune clair */
+    color: #f59f00; /* jaune foncé */
+    padding: 3px 0px;
+    border-radius: 12px;
+    font-weight: bold;
+  }
+  .status-completed {
+    background-color: #d8f5e2; /* vert clair */
+    color: #37b24d; /* vert foncé */
+    padding: 5px 10px;
+    border-radius: 12px;
+    font-weight: bold;
+  }
+  .email-column {
+    width: 200px;  /* Ajustez la largeur en pixels selon vos besoins */
+  }
+  .table {
+    table-layout: fixed;
+  }
+  .custom-btn {
+    color: #28a745; /* Vert pour l'icône */
+    background-color: transparent; /* Fond transparent */
+    border: 2px solid transparent; /* Pas de bordure visible par défaut */
+    border-radius: 8px; /* Arrondi des bordures */
+    transition: border 0.3s ease; /* Animation fluide pour la bordure */
+  }
+  
+  /* Au survol du bouton, la bordure devient visible */
+  .custom-btn:hover {
+    border: 2px solid #28a745; /* Bordure verte au survol */
+  }
+  /* Style par défaut pour le bouton rejet */
+.custom-btn-reject {
+    color: #dc3545; /* Rouge pour l'icône */
+    background-color: transparent; /* Fond transparent */
+    border: 2px solid transparent; /* Pas de bordure visible par défaut */
+    border-radius: 8px; /* Arrondi des bordures */
+    transition: border 0.3s ease; /* Animation fluide pour la bordure */
+  }
+  
+  /* Au survol du bouton, la bordure devient visible */
+  .custom-btn-reject:hover {
+    border: 2px solid #dc3545; /* Bordure rouge au survol */
+  }

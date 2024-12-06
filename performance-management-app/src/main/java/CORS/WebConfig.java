@@ -5,20 +5,20 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-public class WebConfig  {
+public class WebConfig {
     @Bean
     public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowCredentials(true);
-        config.addAllowedOriginPattern("*"); // Autoriser toutes les origines
-        config.addAllowedHeader("*"); // Autoriser tous les headers
-        config.addAllowedMethod("*"); // Autoriser toutes les méthodes
+
+        config.setAllowCredentials(true); // Allow credentials (e.g., cookies, authorization headers)
+        config.addAllowedOriginPattern("*"); // Allow all origins (adjust to restrict specific origins)
+        config.addAllowedHeader("*"); // Allow all headers
+        config.addAllowedMethod("*"); // Allow all HTTP methods (GET, POST, PUT, DELETE, etc.)
+
+        // Apply configuration to all endpoints
         source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);
     }

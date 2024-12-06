@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <ImageView
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="50dp"
+        android:src="@drawable/login"
+        android:layout_marginBottom="16dp"
+        android:layout_gravity="center">
+
+    </ImageView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Inscription"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="16dp"></TextView>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/et_email"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:padding="10dp">
+
+    </EditText>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/et_firstname"
+        android:hint="First Name"
+        android:inputType="text"
+        android:padding="10dp">
+
+    </EditText>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/et_lastname"
+        android:hint="Last Name"
+        android:inputType="text"
+        android:padding="10dp">
+
+    </EditText>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/et_pwd"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:padding="10dp">
+
+    </EditText>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/et_cpwd"
+        android:hint="Confirm Password"
+        android:inputType="textPassword"
+        android:padding="10dp">
+
+    </EditText>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/b_register"
+        android:text="S'inscrire"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/teal_700"
+        android:textColor="@color/white">
+
+    </Button>
+    <TextView
+        android:id="@+id/tv_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Déjà membre ? Connectez-vous"
+        android:textSize="14sp"
+        android:textColor="@android:color/holo_green_dark"
+        android:layout_marginTop="16dp"
+        android:layout_gravity="center">
+
+    </TextView>
+
+</LinearLayout>
